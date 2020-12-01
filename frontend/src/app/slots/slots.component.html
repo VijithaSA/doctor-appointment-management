@@ -1,0 +1,79 @@
+<div class="container pd-2">
+  <div class="row">
+    <div class="col-sm-4">
+      <div class="pr-3 pb-3">
+    	<bs-datepicker-inline [bsValue]="bsInlineValue" (bsValueChange)="onValueChange($event)"></bs-datepicker-inline>
+  		</div>
+    </div>
+    <div class="col-sm-8">
+     <div class="w-100 d-none d-md-block ">
+     	<div class="col-sm-12 pd-bt">
+     		<strong class="pd-2">Morning</strong>
+     		<div class="float-right">
+     			<a (click)="openPopup(addSlots, 'morn')"><i class="fa fa-plus"></i>
+     			Add Slots</a>
+     		</div>
+     		<div>
+     			<div class="row" *ngIf="slotListFNoo?.length > 0">
+	                <div class="column pd-2" *ngFor="let slots of slotListFNoo">
+					    <div class="card">
+					      <h5>{{slots.fromTime}}</h5>
+					    </div>
+					  </div>
+		        </div>
+     		</div>
+     	</div>
+     	<div class="col-sm-12">
+     		<strong class="pd-2">Evening</strong>
+     		<div class="float-right">
+     			<a (click)="openPopup(addSlots, 'eve')"><i class="fa fa-plus"></i>
+     			Add Slots</a>
+     		</div>
+ 			<div class="row" *ngIf="slotListANoo?.length > 0">
+	           <div class="column pd-2" *ngFor="let slots of slotListANoo">
+				    <div class="card">
+				      <h5>{{slots.fromTime}}</h5>
+				    </div>
+				  </div>
+	        </div>
+     	</div>
+     </div>
+    </div>
+  </div>
+</div>
+
+
+<ng-template #addSlots>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Create Slots</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form (onSubmit)="onSubmit()">
+        <div class="form-row">
+            <div class="form-group">
+                <label>From:</label>
+                <timepicker [(ngModel)]="fromTime" name="ftime" [showMeridian]="isMeridian"></timepicker>
+                <div *ngIf="submitted && !fromTime" class="invalid-feedback">
+                    From Time is required
+                </div>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group">
+                <label>To:</label>
+                <timepicker [(ngModel)]="toTime" name="ttime" [showMeridian]="isMeridian"></timepicker>
+                <div *ngIf="submitted && !toTime" class="invalid-feedback">
+                    To Time is required
+                </div>
+            </div>
+        </div>
+        <div class="text-center">
+            <button class="btn btn-primary mr-1" (click)="onSubmit()">Create</button>
+        </div>
+    </form>
+  </div>
+</ng-template>
+
